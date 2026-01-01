@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion with Icons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Brand Colors:
+           Midnight Blue: #1f2a52
+           Teal: #00bec7
+           Light Aqua: #d2f0f0
+           Slate Grey: #abb5bf
+        */
+        :root {
+            --brand-midnight: #1f2a52;
+            --brand-teal: #00bec7;
+            --brand-aqua: #d2f0f0;
+            --brand-grey: #abb5bf;
+            --bg-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--brand-midnight);
+        }
+
+        .accordion-content {
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 600px; 
+            opacity: 1;
+        }
+
+        .accordion-item.active .chevron {
+            transform: rotate(180deg);
+            color: var(--brand-teal);
+        }
+
+        .item-icon-container {
+            background-color: var(--brand-aqua);
+            color: var(--brand-midnight);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item.active .item-icon-container {
+            background-color: var(--brand-teal);
+            color: #ffffff;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--brand-aqua); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brand-grey); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--brand-midnight); 
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto w-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <header class="p-10 text-white relative overflow-hidden" style="background-color: var(--brand-midnight);">
+            <div class="relative z-10">
+                <h1 class="text-3xl font-bold mb-2 uppercase tracking-wide">Accordion with Icons</h1>
+                <p class="font-medium uppercase tracking-widest text-xs opacity-80" style="color: var(--brand-teal);">Lorem Ipsum Subheading</p>
+                <p class="mt-4 text-sm opacity-90 max-w-xl leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </div>
+            <!-- Decorative accent -->
+            <div class="absolute -right-10 -bottom-20 w-64 h-64 rounded-full opacity-10 blur-3xl" style="background-color: var(--brand-teal);"></div>
+        </header>
+
+        <!-- Accordion Container -->
+        <div class="p-8 space-y-4">
+
+            <!-- Item 1 -->
+            <div class="accordion-item border-2 border-slate-100 rounded-xl bg-white hover:border-teal-100 transition-all duration-300" onclick="toggleAccordion(this)">
+                <button class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                    <div class="flex items-center gap-5">
+                        <div class="item-icon-container p-3 rounded-xl shadow-sm">
+                            <i data-lucide="smile" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs uppercase tracking-widest mb-1 block" style="color: var(--brand-teal);">Section 1</span>
+                            <h3 class="font-bold text-lg leading-tight">Subheading</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="chevron w-6 h-6 text-slate-300 transition-transform duration-500"></i>
+                </button>
+                <div class="accordion-content bg-slate-50">
+                    <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-2">
+                        <p class="mb-4 mt-4 font-semibold text-sm uppercase tracking-wide" style="color: var(--brand-midnight);">Content Overview:</p>
+                        <p class="text-sm">
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item border-2 border-slate-100 rounded-xl bg-white hover:border-teal-100 transition-all duration-300" onclick="toggleAccordion(this)">
+                <button class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                    <div class="flex items-center gap-5">
+                        <div class="item-icon-container p-3 rounded-xl shadow-sm">
+                            <i data-lucide="info" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs uppercase tracking-widest mb-1 block" style="color: var(--brand-teal);">Section 2</span>
+                            <h3 class="font-bold text-lg leading-tight">Subheading</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="chevron w-6 h-6 text-slate-300 transition-transform duration-500"></i>
+                </button>
+                <div class="accordion-content bg-slate-50">
+                    <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-2">
+                        <p class="mb-4 mt-4 font-semibold text-sm uppercase tracking-wide" style="color: var(--brand-midnight);">Content Overview:</p>
+                        <p class="text-sm">
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item border-2 border-slate-100 rounded-xl bg-white hover:border-teal-100 transition-all duration-300" onclick="toggleAccordion(this)">
+                <button class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                    <div class="flex items-center gap-5">
+                        <div class="item-icon-container p-3 rounded-xl shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs uppercase tracking-widest mb-1 block" style="color: var(--brand-teal);">Section 3</span>
+                            <h3 class="font-bold text-lg leading-tight">Subheading</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="chevron w-6 h-6 text-slate-300 transition-transform duration-500"></i>
+                </button>
+                <div class="accordion-content bg-slate-50">
+                    <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-2">
+                        <p class="mb-4 mt-4 font-semibold text-sm uppercase tracking-wide" style="color: var(--brand-midnight);">Content Overview:</p>
+                        <p class="text-sm">
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="accordion-item border-2 border-slate-100 rounded-xl bg-white hover:border-teal-100 transition-all duration-300" onclick="toggleAccordion(this)">
+                <button class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                    <div class="flex items-center gap-5">
+                        <div class="item-icon-container p-3 rounded-xl shadow-sm">
+                            <i data-lucide="ear" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs uppercase tracking-widest mb-1 block" style="color: var(--brand-teal);">Section 4</span>
+                            <h3 class="font-bold text-lg leading-tight">Subheading</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="chevron w-6 h-6 text-slate-300 transition-transform duration-500"></i>
+                </button>
+                <div class="accordion-content bg-slate-50">
+                    <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-2">
+                        <p class="mb-4 mt-4 font-semibold text-sm uppercase tracking-wide" style="color: var(--brand-midnight);">Content Overview:</p>
+                        <p class="text-sm">
+                            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="accordion-item border-2 border-slate-100 rounded-xl bg-white hover:border-teal-100 transition-all duration-300" onclick="toggleAccordion(this)">
+                <button class="w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                    <div class="flex items-center gap-5">
+                        <div class="item-icon-container p-3 rounded-xl shadow-sm">
+                            <i data-lucide="lock" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs uppercase tracking-widest mb-1 block" style="color: var(--brand-teal);">Section 5</span>
+                            <h3 class="font-bold text-lg leading-tight">Subheading</h3>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="chevron w-6 h-6 text-slate-300 transition-transform duration-500"></i>
+                </button>
+                <div class="accordion-content bg-slate-50">
+                    <div class="p-6 pt-0 text-slate-600 leading-relaxed border-t border-slate-100 mt-2">
+                        <p class="mb-4 mt-4 font-semibold text-sm uppercase tracking-wide" style="color: var(--brand-midnight);">Content Overview:</p>
+                        <p class="text-sm">
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="bg-slate-50 text-center p-6 text-xs uppercase tracking-widest font-bold border-t border-slate-100" style="color: var(--brand-grey);">
+            Accordion with Icons
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Accordion Toggle Logic
+        function toggleAccordion(element) {
+            const allItems = document.querySelectorAll('.accordion-item');
+            const isActive = element.classList.contains('active');
+
+            // Close all items
+            allItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // If the clicked item wasn't active, open it
+            if (!isActive) {
+                element.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
